@@ -1,4 +1,5 @@
 local lsp_zero = require('lsp-zero')
+local lsp_config = require('lspconfig')
 
 lsp_zero.on_attach(function(client, bufnr)
 	-- see :help lsp-zero-keybindings
@@ -19,7 +20,7 @@ lsp_zero.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 end)
 
-require('lspconfig').sourcekit.setup({
+lsp_config.sourcekit.setup({
 	filetypes = { "swift", "objective-c", "objective-cpp" }
 })
 
@@ -30,3 +31,9 @@ require('mason-lspconfig').setup({
 		lsp_zero.default_setup,
 	},
 })
+
+lsp_zero.setup_servers({'lua_ls', 'rust_analyzer'})
+
+lsp_config.tsserver.setup{ filetypes={ "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", 'svelte' } }
+
+lsp_config.svelte.setup{ filetypes={'svelte'} }
